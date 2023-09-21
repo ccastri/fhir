@@ -2,8 +2,12 @@
 // import { Patient } from 'fhirclient/lib/Resource/Patient';
 // import { Client, FHIRConfig, Patient } from 'fhirclient';
 
-import { ChangeEvent, useState, useEffect} from 'react';
+// import { ChangeEvent, useState, useEffect} from 'react';
 import './App.css'
+import Launch from './pages/launch/Launch';
+import Login from './pages/auth/Login';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+// import HomePage from './pages/HomePage';
 // import Client from 'fhirclient/lib/Client';
 // export type IPeriod = {
 //   start : string,
@@ -31,53 +35,62 @@ function App() {
     //   "resourceType" : "Patient",
     //   // from Resource: id, meta, implicitRules, and language
     //   // from DomainResource: text, contained, extension, and modifierExtension
-    const [patient, setPatient] = useState(null);
-    const [error, setError] = useState(null);
-    const [dateTime, setDateTime] = useState('');
-    const [isValid, setIsValid] = useState(true);
+    // const [patient, setPatient] = useState(null);
+    // const [error, setError] = useState(null);
+    // const [dateTime, setDateTime] = useState('');
+    // const [isValid, setIsValid] = useState(true);
 
- useEffect(() => {
-   // Realiza la solicitud GET al servidor backend en Docker
-   fetch('http://localhost:8090/fhir/Patient/fe9eba1a-50c0-4e9f-8fa1-fbeaa921e980')
-     .then((response) => {
-       if (!response.ok) {
-         throw new Error('La solicitud no pudo ser completada.');
-       }
-       return response.json();
-     })
-     .then((data) => {
-       setPatient(data);
-     })
-     .catch((err) => {
-       setError(err.message);
-     });
- }, []);
+//  useEffect(() => {
+//    // Realiza la solicitud GET al servidor backend en Docker
+//    fetch('http://localhost:8090/fhir/Patient/fe9eba1a-50c0-4e9f-8fa1-fbeaa921e980')
+//      .then((response) => {
+//        if (!response.ok) {
+//          throw new Error('La solicitud no pudo ser completada.');
+//        }
+//        return response.json();
+//      })
+//      .then((data) => {
+//        setPatient(data);
+//      })
+//      .catch((err) => {
+//        setError(err.message);
+//      });
+//  }, []);
 
- if (error) {
-   return <div>Error: {error}</div>;
- }
+//  if (error) {
+//    return <div>Error: {error}</div>;
+//  }
 
- if (!patient) {
-   return <div>Cargando...</div>;
- }
+//  if (!patient) {
+//    return <div>Cargando...</div>;
+//  }
 
 
  // const client = new Client({ baseUrl: 'http://localhost:5173' });
-const dateTimeRegex = /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]{1,9})?)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00)?)?)?)?$/;
+// const dateTimeRegex = /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]{1,9})?)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00)?)?)?)?$/;
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-      const newValue = e.target.value;
-      setDateTime(newValue);
+    // const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    //   const newValue = e.target.value;
+    //   setDateTime(newValue);
 
-      // Validate against the regex
-      setIsValid(dateTimeRegex.test(newValue));
+    //   // Validate against the regex
+    //   setIsValid(dateTimeRegex.test(newValue));
 
-    };
+    // };
 
     
   return (
     <>
+       <Router>
      <h1 className="bg-red-500"> Create a new Patient:</h1>
+     <Routes>
+      
+      <Route path="/" element={<Navigate to="/launch" />} />
+      <Route  path="/launch" element={<Launch/>} />
+      <Route  path="/auth/login" element={<Login/>} />
+      {/* <Route exact path="/" component={HomePage} /> */}
+     </Routes>
+    </Router>
          {/* <div>
       <h1>Información del Paciente</h1>
       <p>Nombre: {patient.name[0].given[0]} {patient.name[0].family}</p>
@@ -86,12 +99,12 @@ const dateTimeRegex = /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1
       <p>Teléfono: {patient.telecom[0].value}</p>
       <p>Correo Electrónico: {patient.telecom[1].value}</p>
     </div> */}
-     <div className="flex flex-col border-2 w-full space-y-6  ">
+     {/* <div className="flex flex-col border-2 w-full space-y-6  ">
       <input type="text" placeholder="Name" className='border-2 w-64'/>
       <input type="text" placeholder="Name" className='border-2 w-64'/>
       <input type="text" placeholder="Name" className='border-2 w-64'/>
-      <input type="text" placeholder="Name" className='border-2 w-64'/>
-    <input
+      <input type="text" placeholder="Name" className='border-2 w-64'/> */}
+    {/* <input
     type="text"
     value={dateTime}
     onChange={handleInputChange}
@@ -99,9 +112,9 @@ const dateTimeRegex = /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1
   />
   {!isValid && (
     <p style={{ color: 'red' }}>Invalid FHIR DateTime format. Please use the format: YYYY-MM-DDThh:mm:ss+zz:zz</p>
-  )}
-</div>
-      <p></p>
+  )} */}
+{/* </div> */}
+      {/* <p></p> */}
     </>
   )
 }

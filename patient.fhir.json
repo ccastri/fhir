@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "name": [
+    {
+      "use": "official",
+      "given": ["Camilo"],
+      "family": "Castrillon"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1998-07-16",
+  "telecom": [
+    {
+      "value": "3107282535",
+      "use": "mobile",
+      "system": "phone"
+    },
+    {
+      "system": "email",
+      "value": "ccastri.dev.333@gmail.com"
+    }
+  ],
+  "address": [
+    {
+      "line": ["cra 35A # 10-41"],
+      "city": "Cali",
+      "state": "Valle del Cauca",
+      "postalCode": "760001"
+    }
+  ]
+}
