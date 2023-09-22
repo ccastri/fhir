@@ -12,6 +12,7 @@ services:
       hapi.fhir.subscription.resthook_enabled: "true"
       hapi.fhir.subscription.websocket_enabled: "true"
       hapi.fhir.client_id_strategy: ANY
+      hapi.fhir.cors.enabled: "true"
   fhir-db:
     image: postgres
     volumes:
@@ -20,5 +21,12 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_USER: admin
       POSTGRES_DB: hapi_r4
+  # frontend:
+  #   build:
+  #     context: .
+  #   ports:
+  #     - "5173:3000" # Replace with the port your Vite app uses
+  #   depends_on:
+  #     - fhir
 volumes:
   fhir-db-data:
