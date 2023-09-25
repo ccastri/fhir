@@ -19,8 +19,8 @@ const patientEndpoint = `${fhirServerBaseUrl}/Patient/${patientId}`;
 
 // const myApp = {}
 //! Registrar la app nuevamente con los links y todo
-const storedAuthorization = localStorage.getItem('fhirAuthorization');
-console.log(storedAuthorization)
+// const storedAuthorization = localStorage.getItem('fhirAuthorization');
+// console.log(storedAuthorization)
 // if (storedAuthorization) {
 //   const authorizationResponse = JSON.parse(storedAuthorization);
 
